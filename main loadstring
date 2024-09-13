@@ -1,16 +1,75 @@
-repeat task.wait() until game:IsLoaded()
-wait(5) -- Put this for make sure script will execute
-_G.Webhook  = {['WebhookLink'] = 'Link', ['SendWebhookReward'] = true} -- Notify when end match
-_G.SettingsAD = {
-    ["LeaveAtWave"] = 32,
-    ["DelayStartLobby"] = 5,
-    ["MethodLeave"] = "Leave", -- Sell, Leave,
-    ["ReplayInStoryMode"] = false, -- Use when u want to play only story mode ( next time will go to next chapter too when disconnect )
-    ["BlackScreen"] = true,
-    ["EquipBest"] = true,
-    ["SpeedModifier"] = 2
+local player = game.Players.LocalPlayer
+ 
+-- accounts
+local accounts = {
+    ["koga2072"] = {"koga2070", "koga2071", "koga2073", "koga2074"},
+    ["Kiritoalto12"] = {"koga2075", "koga2076", "Kiritoalto19", "Kiritoalto21"},
+    ["Kiritoalto16"] = {"koga2077v3", "Kiritoalto23", "Kiritoalto24", "Kiritoalto25"},
+    ["Kiritoalto22"] = {"Kiritoalto27", "Kiritoalto28", "Kiritoalto29", "Kiritoalto31"},
+    ["Kiritoalto26"] = {"Kiritoalto32", "Kiritoalto33", "funkymonkeys125", "tulipfielddd"},
+    ["Kiritoalto30"] = {"tulipfieldddd", "monkeyscudks", "ferdinandkrystal", "monkeymanws6"},
+    ["Kiritoalto34"] = {"kazuhikoshaker", "crystiepension", "highwa61", "highwa5af"},
+    ["tulipfielddddd"] = {"highwat535", "KD_182", "highwayonhy", "bimbambom_24"},
+    ["ihordorelle"] = {"highwayine", "FUTUREHASURA", "neverstopgrinding71", "AnimeDefendersTrash5"},
+    ["highwayxe"] = {"DOUBLERWITFACTORYRIM", "GODDDDIDDDD_0", "whereareugoingblud", "neverstopgrinding72"},
+    ["highwaywash"] = {"koga2078", "koga2079", "koga2072", "Kiritoalto12"},
+    ["KRAKRAYHOLDINGS"] = {"Kiritoalto16", "Kiritoalto22", "Kiritoalto26", "Kiritoalto30"},
+    ["WiseIsPocketLooking"] = {"Kiritoalto34", "tulipfielddddd", "ihordorelle", "highwayxe"},
+    ["wecangoMforMs"] = {"KRAKRAYHOLDINGS", "WiseIsPocketLooking", "wecangoMforMs"},
 }
-getgenv().Key = "MARU-XCQV-LMPSQ-ZOWP-ZN8GK-8ZKQ"
-getgenv().id = "867269541575000094"
-getgenv().Script_Mode = "Kaitun_Script"
-loadstring(game:HttpGet("https://raw.githubusercontent.com/xshiba/MaruBitkub/main/Mobile.lua"))()
+ 
+local function getAccountType(playerName)
+    for mainAccount, subAccounts in pairs(accounts) do
+        if playerName == mainAccount then
+            return "main", mainAccount
+        elseif table.find(subAccounts, playerName) then
+            return "sub", mainAccount
+        end
+    end
+    return nil, nil -- If player is neither in main nor sub-accounts list
+end
+ 
+local accountType, associatedMainAccount = getAccountType(player.Name)
+ 
+if accountType == "main" then
+    -- Main account script
+    script_key = "pjuKDdlQZJsYEcFfdAxZlpHQYflHFKFV"
+    getgenv().SelectedPlayer = player.Name -- Main Account name, to which gems will be sent
+    getgenv().MainAccount = true -- Set True if it's the account to receive gems
+    getgenv().AccountForMainToFolow = ""
+    getgenv().EnableAccountForMainFolow = false -- Main joins a low server with an account already in server
+    getgenv().MainAccountSetting = { -- Unit To Sell
+        Units = {"Electric Cyborg", "Magic Arrow", "Legion Veteran", "Legion Assassin", "Blood Demon", "Fire Swordsman", "Magic Arrow", "Cursed Archer", "Ocean Guardian", "Beast Sorcerer", "Warrior Princess"},
+        ManuallyClaimBooth = false,
+    }
+    getgenv().AltAccountSetting = {
+        Trade = true,
+        NotSendGem = false,
+        TradeItems = {"Trait Crystal", "Risky Dice"},
+        GiveBackUnit = true,
+        KickAfterDoneTrade = true,
+    }
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3051457467c11f25288cfe2de3708373.lua"))()
+ 
+elseif accountType == "sub" then
+    -- Sub account script
+    script_key = "pjuKDdlQZJsYEcFfdAxZlpHQYflHFKFV"
+    getgenv().SelectedPlayer = associatedMainAccount -- Main Account name that the sub-account will send gems to
+    getgenv().MainAccount = false -- Set False because it's a sub account
+    getgenv().AccountForMainToFolow = ""
+    getgenv().EnableAccountForMainFolow = false -- Main joins a low server with an account already in server
+    getgenv().MainAccountSetting = { -- Unit To Sell
+        Units = {"Electric Cyborg", "Magic Arrow", "Legion Veteran", "Legion Assassin", "Blood Demon", "Fire Swordsman", "Magic Arrow", "Cursed Archer", "Ocean Guardian, "Beast Sorcerer", "Warrior Princess"},
+        ManuallyClaimBooth = false,
+    }
+    getgenv().AltAccountSetting = {
+        Trade = true,
+        NotSendGem = false,
+        TradeItems = {"Trait Crystal", "Risky Dice"},
+        GiveBackUnit = true,
+        KickAfterDoneTrade = true,
+    }
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/3051457467c11f25288cfe2de3708373.lua"))()
+else
+    print("WOMP WOMP")
+end
