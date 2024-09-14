@@ -15,7 +15,7 @@ local accounts = {
     ["highwaywash"] = {"koga2078", "koga2079", "koga2072", "Kiritoalto12"},
     ["KRAKRAYHOLDINGS"] = {"Kiritoalto16", "Kiritoalto22", "Kiritoalto26", "Kiritoalto30"},
     ["WiseIsPocketLooking"] = {"Kiritoalto34", "tulipfielddddd", "ihordorelle", "highwayxe"},
-    ["wecangoMforMs"] = {"KRAKRAYHOLDINGS", "WiseIsPocketLooking", "wecangoMforMs"},
+    ["wecangoMforMs"] = {"KRAKRAYHOLDINGS", "WiseIsPocketLooking", "wecangoMforMs"}
 }
  
 local function getAccountType(playerName)
